@@ -1,3 +1,9 @@
+
+
+![Menu](readme/img3.jpeg)
+![Board](readme/img1.jpeg)
+![Playmode](readme/img2.jpeg)
+
 # Attack
 
 Welcome to **Attack**, a 5x5 chess-like game built with React and Redux. This project showcases a simple yet engaging board game where two players compete to dominate the board.

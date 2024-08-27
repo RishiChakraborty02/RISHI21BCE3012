@@ -19,12 +19,10 @@ const EntryPage = () => {
 
   useEffect(() => {
     socket.on("gameJoined", (data) => {
-      dispatch(joinSession(data))
-
+      dispatch(joinSession(data));
     });
 
     socket.on("gameCreated", (data) => {
-      console.log(data);
       dispatch(createnewSession(data.gameId));
     });
 

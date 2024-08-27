@@ -263,6 +263,7 @@ const initialState = {
 
   deletedObjects: [],
   winner: null,
+  movesHistory: [],
 };
 
 const gameSlice = createSlice({
@@ -332,6 +333,9 @@ const gameSlice = createSlice({
           characterName: null,
           highlight: false,
         };
+
+        // Add move to moves history
+        state.movesHistory.push({ fromId, toId, player: currentPlayer });
 
         // Reset all highlights
         state.gameBoard.forEach((tile) => {
@@ -461,6 +465,9 @@ const gameSlice = createSlice({
           highlight: false,
         };
 
+        // Add move to moves history
+        state.movesHistory.push({ fromId, toId, player: currentPlayer });
+
         // Reset all highlights
         state.gameBoard.forEach((tile) => {
           tile.tileDetails.highlight = false;
@@ -493,15 +500,14 @@ const gameSlice = createSlice({
       console.log(action.payload);
       state.sessionDetails.game_id = action.payload;
       state.sessionDetails.created_by = action.payload.created_by;
-      state.sessionDetails.current_active_player = 0;
-      state.playerid = 0;
-    },
-    joinSession: (state, action) => {
-      console.log(action.payload,"MEOW")
-      state.sessionDetails.game_id = action.payload.gameId;
-
       state.sessionDetails.current_active_player = 1;
       state.playerid = 1;
+    },
+    joinSession: (state, action) => {
+      state.sessionDetails.game_id = action.payload.gameId;
+
+      state.sessionDetails.current_active_player = 2;
+      state.playerid = 2;
     },
     updateGameBoard: (state, action) => {
       state.gameBoard = action.payload.gameBoard;
@@ -523,7 +529,7 @@ export const {
   joinSession,
   createnewSession,
   updateGameBoard,
-  playerJoinUpdate
+  playerJoinUpdate,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

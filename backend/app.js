@@ -28,7 +28,6 @@ io.on("connection", (socket) => {
   console.log("User connected");
 
   socket.on("createGame", () => {
-
     const gameId = generateUniqueId();
     const game = new Game(gameId);
 
@@ -51,8 +50,7 @@ io.on("connection", (socket) => {
     } else {
       socket.emit("error", "Game not found");
     }
-  })
-
+  });
 
   socket.on("joinGame", (gameId) => {
     const game = games.get(gameId);
@@ -60,6 +58,7 @@ io.on("connection", (socket) => {
       game.addPlayer(socket.id);
       socket.join(gameId);
       socket.emit("gameJoined", { gameId, gameState: game.getGameState() });
+      io.to(gameId).emit("playerJoined");
       console.log("Player joined game", gameId);
     } else {
       socket.emit("error", "Game not found");
@@ -69,7 +68,7 @@ io.on("connection", (socket) => {
   socket.on("move", ({ gameId, fromId, toId }) => {
     const game = games.get(gameId);
     if (game) {
-      console.log("MEOW")
+      console.log("MEOW");
       game.makeMove(fromId, toId);
       io.to(gameId).emit("move", {
         fromId,

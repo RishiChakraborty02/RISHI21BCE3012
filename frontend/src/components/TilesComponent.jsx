@@ -23,6 +23,7 @@ const TilesComponent = ({ item }) => {
     if (selectedTile && selectedTile !== id) {
       return;
     }
+    
 
     // playSound(clickSound);
     dispatch(highlightTiles({ character, id }));
